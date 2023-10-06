@@ -11,6 +11,7 @@ function App() {
           <h1>Welcome to Proshop</h1>
         </Container>
       </main>
+      <Footer />
     </>
   );
 }

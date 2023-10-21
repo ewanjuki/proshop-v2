@@ -17,10 +17,9 @@ import Product from "./pages/Product";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index="true" path="/" element={<Home />}></Route>
+      <Route index={true} path="/" element={<Home />}></Route>
       <Route path="/product/:id" element={<Product />}></Route>
-    </Route>,
-    
+    </Route>    
   )
 );
 

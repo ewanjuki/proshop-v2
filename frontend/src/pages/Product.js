@@ -38,7 +38,7 @@ function Product() {
             <ListGroup>
               <ListGroup.Item>
                 <Row>
-                  <Col>Price</Col>
+                  <Col>Price:</Col>
                   <Col>
                     <strong>${product.price}</strong>
                   </Col>
@@ -46,7 +46,7 @@ function Product() {
               </ListGroup.Item>
               <ListGroup.Item>
                 <Row>
-                  <Col>Status</Col>
+                  <Col>Status:</Col>
                   <Col>
                     <strong>
                       {product.countInStock > 0 ? "In Stock" : "Out of Stock"}

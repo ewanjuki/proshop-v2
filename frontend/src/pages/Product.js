@@ -3,6 +3,8 @@ import { useParams, Link } from "react-router-dom";
 import { Row, Col, Image, ListGroup, Button, Card } from "react-bootstrap";
 
 import Rating from "../components/Rating";
+import Loader from "../components/Loader";
+import Message from "../components/Message";
 import { useGetProductDetailsQuery } from "../slices/productsApiSlice";
 
 function Product() {
@@ -16,9 +18,9 @@ function Product() {
         Go Back
       </Link>
       {isLoading ? (
-        <h2>Loading...</h2>
+        <Loader />
       ) : error ? (
-        <div>{error?.data?.message || error.err}</div>
+        <Message variant="danger">{error?.data?.message || error.err}</Message>
       ) : (
         <Row>
           <Col md={5}>

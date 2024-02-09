@@ -14,6 +14,7 @@ import "./assets/styles/index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
+import PrivateRoute from "./components/PrivateRoute";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
@@ -29,7 +30,10 @@ const router = createBrowserRouter(
       <Route path="/cart" element={<Cart />}></Route>
       <Route path="/login" element={<Login />}></Route>
       <Route path="/register" element={<Register />}></Route>
-      <Route path="/shipping" element={<Shipping />}></Route>
+
+      <Route path="" element={<PrivateRoute />}>
+        <Route path="/shipping" element={<Shipping />}></Route>
+      </Route>
     </Route>
   )
 );

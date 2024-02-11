@@ -16,6 +16,7 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 import PrivateRoute from "./components/PrivateRoute";
+import AdminRoute from "./components/AdminRoute";
 import Home from "./pages/Home";
 import Product from "./pages/Product";
 import Cart from "./pages/Cart";
@@ -26,6 +27,7 @@ import Payment from "./pages/Payment";
 import PlaceOrder from "./pages/PlaceOrder";
 import Order from "./pages/Order";
 import Profile from "./pages/Profile";
+import OrderList from "./pages/admin/OrderList";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -42,6 +44,10 @@ const router = createBrowserRouter(
         <Route path="/placeorder" element={<PlaceOrder />}></Route>
         <Route path="/order/:id" element={<Order />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
+      </Route>
+
+      <Route path="" element={<AdminRoute />}>
+        <Route path="/admin/orderlist" element={<OrderList />}></Route>
       </Route>
     </Route>
   )

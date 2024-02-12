@@ -9,8 +9,6 @@ import { useGetOrdersQuery } from "../../slices/ordersApiSlice";
 function OrderList() {
   const { data: orders, isLoading, error } = useGetOrdersQuery();
 
-  console.log(orders);
-
   return (
     <>
       <h1>Orders</h1>

@@ -11,6 +11,7 @@ import {
   useGetOrderDetailsQuery,
   usePayOrderMutation,
   useGetPayPalClientIdQuery,
+  useDeliverOrderMutation,
 } from "../slices/ordersApiSlice";
 
 function Order() {
@@ -33,6 +34,9 @@ function Order() {
     isLoading: loadingPayPal,
     error: errorPayPal,
   } = useGetPayPalClientIdQuery();
+
+  const [deliverOrder, { isLoading: loadingDeliver }] =
+    useDeliverOrderMutation();
 
   const { userInfo } = useSelector((state) => state.auth);
 
@@ -88,6 +92,16 @@ function Order() {
   };
   const onError = (err) => {
     toast.error(err?.data?.message || err.error);
+  };
+
+  const deliverOrderHandler = async () => {
+    try {
+      await deliverOrder(orderId).unwrap();
+      refetch();
+      toast.success("Order delivered");
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
   };
 
   return isLoading ? (
@@ -226,9 +240,9 @@ function Order() {
                 </ListGroup.Item>
               )}
 
-              {/* {loadingDeliver && <Loader />} */}
+              {loadingDeliver && <Loader />}
 
-              {/* {userInfo &&
+              {userInfo &&
                 userInfo.isAdmin &&
                 order.isPaid &&
                 !order.isDelivered && (
@@ -236,12 +250,12 @@ function Order() {
                     <Button
                       type="button"
                       className="btn btn-block"
-                      onClick={deliverHandler}
+                      onClick={deliverOrderHandler}
                     >
                       Mark As Delivered
                     </Button>
                   </ListGroup.Item>
-                )} */}
+                )}
             </ListGroup>
           </Card>
         </Col>

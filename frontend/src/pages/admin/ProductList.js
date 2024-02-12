@@ -1,15 +1,31 @@
 import { LinkContainer } from "react-router-bootstrap";
 import { Table, Button, Row, Col } from "react-bootstrap";
 import { FaEdit, FaTrash, FaPlus } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 import Message from "../../components/Message";
 import Loader from "../../components/Loader";
-import { useGetProductsQuery } from "../../slices/productsApiSlice";
+import {
+  useGetProductsQuery,
+  useCreateProductMutation,
+} from "../../slices/productsApiSlice";
 
 function ProductList() {
-  const { data: products, isLoading, error } = useGetProductsQuery();
+  const { data: products, isLoading, error, refetch } = useGetProductsQuery();
 
-  const createProductHandler = () => {};
+  const [createProduct, { isLoading: loadingCreate }] =
+    useCreateProductMutation();
+
+  const createProductHandler = async () => {
+    if (window.confirm("Are you sure you want to create a new Product?")) {
+      try {
+        await createProduct();
+        refetch();
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  };
 
   const deleteHandler = () => {};
 
@@ -26,6 +42,7 @@ function ProductList() {
         </Col>
       </Row>
 
+      {loadingCreate && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (

@@ -13,11 +13,24 @@ import {
 function UserList() {
   const { data: users, isLoading, error, refetch } = useGetUsersQuery();
 
-  const deleteHandler = () => {};
+  const [deleteUser, { isLoading: loadingDelete }] = useDeleteUserMutation();
+
+  const deleteHandler = async (userId) => {
+    if (window.confirm("Are you sure?")) {
+      try {
+        const res = await deleteUser(userId).unwrap();
+        refetch();
+        toast.success(res.message);
+      } catch (err) {
+        toast.error(err?.data?.message || err.error);
+      }
+    }
+  };
 
   return (
     <>
       <h1>Users</h1>
+      {loadingDelete && <Loader />}
       {isLoading ? (
         <Loader />
       ) : error ? (

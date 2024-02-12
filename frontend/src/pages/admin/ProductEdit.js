@@ -9,6 +9,7 @@ import FormContainer from "../../components/FormContainer";
 import {
   useUpdateProductMutation,
   useGetProductDetailsQuery,
+  useUploadProductImageMutation,
 } from "../../slices/productsApiSlice";
 
 function ProductEdit() {
@@ -34,6 +35,9 @@ function ProductEdit() {
   const [updateProduct, { isLoading: loadingUpdate }] =
     useUpdateProductMutation();
 
+  const [uploadProductImage, { isLoading: loadingUpload }] =
+    useUploadProductImageMutation();
+
   useEffect(() => {
     if (product) {
       setName(product.name);
@@ -46,7 +50,19 @@ function ProductEdit() {
     }
   }, [product]);
 
-  const uploadFileHandler = () => {};
+  const uploadFileHandler = async (e) => {
+    const formData = new FormData();
+    formData.append("image", e.target.files[0]);
+    console.log("formData");
+    try {
+      const res = await uploadProductImage(formData).unwrap();
+      console.log(res);
+      toast.success(res.message);
+      setImage(res.image);
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -117,7 +133,7 @@ function ProductEdit() {
                 onChange={uploadFileHandler}
                 type="file"
               ></Form.Control>
-              {/* {loadingUpload && <Loader />} */}
+              {loadingUpload && <Loader />}
             </Form.Group>
 
             <Form.Group controlId="brand">

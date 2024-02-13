@@ -20,12 +20,7 @@ function UserEdit() {
   const { id: userId } = useParams();
   const navigate = useNavigate();
 
-  const {
-    data: user,
-    isLoading,
-    error,
-    refetch,
-  } = useGetUserDetailsQuery(userId);
+  const { data: user, isLoading, error } = useGetUserDetailsQuery(userId);
 
   const [updateUser, { isLoading: loadingUpdate }] = useUpdateUserMutation();
 

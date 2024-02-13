@@ -1,5 +1,6 @@
 import { Row, Col } from "react-bootstrap";
 import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Product from "../components/Product";
 import Loader from "../components/Loader";
@@ -17,6 +18,7 @@ function Home() {
 
   return (
     <>
+      {keyword && <Link to="/" className="btn btn-light mb-4">Back</Link>}
       {isLoading ? (
         <Loader />
       ) : error ? (

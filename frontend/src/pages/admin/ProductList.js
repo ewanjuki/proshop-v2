@@ -15,7 +15,9 @@ import {
 
 function ProductList() {
   const { pageNumber } = useParams();
-  const { data, isLoading, error, refetch } = useGetProductsQuery(pageNumber);
+  const { data, isLoading, error, refetch } = useGetProductsQuery({
+    pageNumber,
+  });
 
   const [createProduct, { isLoading: loadingCreate }] =
     useCreateProductMutation();
@@ -64,7 +66,7 @@ function ProductList() {
       {isLoading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error.data.message}</Message>
+        <Message variant="danger">{error?.data?.message}</Message>
       ) : (
         <>
           <Table striped bordered hover responsive className="table-sm">

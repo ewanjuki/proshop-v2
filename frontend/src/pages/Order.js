@@ -24,7 +24,7 @@ function Order() {
     refetch,
   } = useGetOrderDetailsQuery(orderId);
 
-  const [payOrder, { isLoading: loadingPay, error: errorPay }] =
+  const [payOrder, { isLoading: loadingPay }] =
     usePayOrderMutation();
 
   const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
@@ -59,7 +59,7 @@ function Order() {
         }
       }
     }
-  }, [payPal, errorPayPal, loadingPayPal, order]);
+  }, [payPal, errorPayPal, loadingPayPal, order, paypalDispatch]);
 
   const createOrder = (data, actions) => {
     return actions.order
@@ -85,11 +85,11 @@ function Order() {
       }
     });
   };
-  const onApproveTest = async () => {
-    await payOrder({ orderId, details: { payer: {} } });
-    refetch();
-    toast.success("Payment successful");
-  };
+  // const onApproveTest = async () => {
+  //   await payOrder({ orderId, details: { payer: {} } });
+  //   refetch();
+  //   toast.success("Payment successful");
+  // };
   const onError = (err) => {
     toast.error(err?.data?.message || err.error);
   };

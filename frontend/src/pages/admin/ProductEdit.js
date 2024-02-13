@@ -29,7 +29,6 @@ function ProductEdit() {
     data: product,
     isLoading,
     error,
-    refetch,
   } = useGetProductDetailsQuery(productId);
 
   const [updateProduct, { isLoading: loadingUpdate }] =

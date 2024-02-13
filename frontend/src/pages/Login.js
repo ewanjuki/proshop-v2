@@ -28,7 +28,7 @@ function Login() {
     if (userInfo) {
       navigate(redirect);
     }
-  }, [redirect, userInfo]);
+  }, [redirect, userInfo, navigate]);
 
   const submitHandler = async (e) => {
     e.preventDefault();

@@ -32,7 +32,7 @@ function PlaceOrder() {
     } else if (!paymentMethod) {
       navigate("/payment");
     }
-  }, [shippingAddress.address, paymentMethod]);
+  }, [shippingAddress.address, paymentMethod, navigate]);
 
   const placeOrderHandler = async () => {
     try {
